@@ -30,6 +30,7 @@ class ModelFlux(ModelTemplate):
         ("double_blocks.0.img_attn.proj.weight",),
     ]
     keys_banned = ["transformer_blocks.0.attn.norm_added_k.weight",]
+    keys_hiprec = ["nerf_image_embedder.embedder.0.weight",]
 
 class ModelSD3(ModelTemplate):
     arch = "sd3"
@@ -362,4 +363,5 @@ def convert_file(path, dst_path=None, interact=True, overwrite=False):
 if __name__ == "__main__":
     args = parse_args()
     convert_file(args.src, args.dst)
+
 
