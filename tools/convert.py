@@ -256,8 +256,8 @@ def handle_tensors(writer, state_dict, model_arch):
         data_shape = data.shape
         if old_dtype == torch.bfloat16:
             data_qtype = gguf.GGMLQuantizationType.BF16
-        # elif old_dtype == torch.float32:
-        #     data_qtype = gguf.GGMLQuantizationType.F32
+        elif old_dtype == torch.float32:
+            data_qtype = gguf.GGMLQuantizationType.F32
         else:
             data_qtype = gguf.GGMLQuantizationType.F16
 
@@ -321,8 +321,8 @@ def convert_file(path, dst_path=None, interact=True, overwrite=False):
     main_dtype = max(dtypes, key=dtypes.get)
 
     if main_dtype == torch.bfloat16:
-        ftype_name = "F32"
-        ftype_gguf = gguf.LlamaFileType.ALL_F32
+        ftype_name = "BF16"
+        ftype_gguf = gguf.LlamaFileType.MOSTLY_F16
     elif main_dtype == torch.float32:
         ftype_name = "F32"
         ftype_gguf = gguf.LlamaFileType.ALL_F32
@@ -363,6 +363,7 @@ def convert_file(path, dst_path=None, interact=True, overwrite=False):
 if __name__ == "__main__":
     args = parse_args()
     convert_file(args.src, args.dst)
+
 
 
 
