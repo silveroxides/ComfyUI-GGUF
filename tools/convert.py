@@ -323,9 +323,9 @@ def convert_file(path, dst_path=None, interact=True, overwrite=False):
     if main_dtype == torch.bfloat16:
         ftype_name = "BF16"
         ftype_gguf = gguf.LlamaFileType.MOSTLY_BF16
-    # elif main_dtype == torch.float32:
-    #     ftype_name = "F32"
-    #     ftype_gguf = None
+    elif main_dtype == torch.float32:
+        ftype_name = "F32"
+        ftype_gguf = gguf.LlamaFileType.MOSTLY_FP32
     else:
         ftype_name = "F16"
         ftype_gguf = gguf.LlamaFileType.MOSTLY_F16
@@ -363,6 +363,7 @@ def convert_file(path, dst_path=None, interact=True, overwrite=False):
 if __name__ == "__main__":
     args = parse_args()
     convert_file(args.src, args.dst)
+
 
 
 
